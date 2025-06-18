@@ -65,3 +65,17 @@ If you want to run or extend the Python source:
 
 ```bash
 pip install -r requirements.txt
+
+---
+
+## 🧠 Credits
+
+This project is made possible thanks to these amazing open-source tools and APIs:
+
+- 🎥 [**yt-dlp**](https://github.com/yt-dlp/yt-dlp) — YouTube media downloader
+- 📀 [**mutagen**](https://mutagen.readthedocs.io/) — Audio metadata editor (MP3 & M4A)
+- 🎨 [**Deezer API**](https://developers.deezer.com/) — For artist, album, and cover metadata
+- 📝 [**Lyrics.ovh**](https://lyrics.ovh/) — For fetching plain song lyrics
+- 🧰 **tkinter** — Python’s built-in GUI toolkit for native desktop apps
+
+💡 Built with love, Python, and way too many test MP3s. 🎧
