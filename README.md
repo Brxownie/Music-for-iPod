@@ -3,7 +3,7 @@
 A sleek, offline-capable **music tool** for Windows that lets you:
 
 > ✅ Download any song from YouTube  
-> 🧠 Automatically tag it with proper **artist, title, album, cover**, and **time-synced lyrics**  
+> 🧠 Automatically tag it with proper **artist, title, album, cover**, and **lyrics**  
 > 🎧 Get clean `.mp3` or `.m4a` files, ready for your player or editor
 
 No junk. No command line. Just double-click, search, download, and you're done. 🪄
