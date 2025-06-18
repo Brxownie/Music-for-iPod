@@ -74,5 +74,5 @@ pip install -r requirements.txt
 - [mutagen](https://github.com/quodlibet/mutagen) — For audio metadata editing
 - [Deezer API](https://developers.deezer.com/api) — For artist, album, and cover data
 - [Lyrics.ovh](https://lyricsovh.docs.apiary.io) — For fetching plain lyrics
-- GUI and logic — handcrafted by [Brxownie](https://github.com/Brxownie)
+- GUI and logic — handcrafted by [Brxownie](https://github.com/Brxownie) and ChatGPT
 
