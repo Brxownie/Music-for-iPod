@@ -1,38 +1,67 @@
-# 🎶 YouTube Song Downloader + Metadata Embedder
+# 🎶 YouTube MP3 Downloader + Auto Metadata & Lyrics Embedder
 
-This project is a **modern, GUI-based toolkit** for downloading music from YouTube and automatically enriching your audio files with full metadata, including time-synced lyrics.
+A sleek, offline-capable **music tool** for Windows that lets you:
 
----
+> ✅ Download any song from YouTube  
+> 🧠 Automatically tag it with proper **artist, title, album, cover**, and **time-synced lyrics**  
+> 🎧 Get clean `.mp3` or `.m4a` files, ready for your player or editor
 
-## ✨ Features
-
-### 📥 YouTube Song Downloader
-- Search YouTube for songs using a sleek Windows 11-style GUI
-- Automatically removes junk like `(lyrics)`, `[official audio]`, etc. from titles
-- Downloads **best audio quality**, converts to `.mp3`
-- Displays video uploader/channel info
-- One-click download button per result
-- Opens the Metadata Embedder after download
-
-### 🧠 Auto Metadata Embedder
-- Drag & drop or batch-select MP3/M4A files
-- Detect artist & title from filename automatically
-- Fetches:
-  - Artist
-  - Title
-  - Album
-  - Cover Art (in HD)
-  - Lyrics
-- Renames files to `Artist - Title.mp3` (optional)
-- Creates a side panel showing live status per file
+No junk. No command line. Just double-click, search, download, and you're done. 🪄
 
 ---
 
-## 📂 File Structure
+## 🧩 What's Inside?
+
+### 🎵 Download Songs.exe
+> Your fast, smart YouTube song fetcher
+
+- 🔍 Search up to 10 results from YouTube directly
+- 🎯 Picks the best quality audio
+- 🧹 Automatically cleans titles (removes "lyrics", "official video", etc.)
+- 📁 Saves the file as a proper `.mp3`
+- 🎼 One-click button to open the metadata editor (`Music.exe`)
+
+### 🎙️ Music.exe
+> The powerful metadata editor & lyrics injector
+
+- 🧠 Detects artist & title automatically from filename
+- 🌐 Fetches:
+  - 🎨 Album, release year, HD cover art (from Deezer)
+  - 📝 Full lyrics (from Lyrics.ovh)
+- 🖊️ Embeds all metadata directly into the `.mp3` or `.m4a` file
+- 🎼 Optionally renames file to `Artist - Title.mp3`
+- ✅ Shows progress and lets you batch-process your library
+
+---
+
+## 🖥️ How to Use (Windows)
+
+> ✅ No Python. No Terminal. No Hassle.
+
+### 🔄 Step-by-step
+
+1. 📦 **[Download the latest release](https://github.com/YourUser/YourRepo/releases)**
+2. 🗂️ Extract the `.zip` anywhere
+3. 🚀 Double-click `Download Songs.exe`
+4. 🔎 Search your song and hit **Download**
+5. 🎼 Click **"Open Music.exe"** to embed clean metadata + lyrics
+
+🎉 You're done. Plug your files into any player, editor, or even upload to Spotify/Apple Music. They'll look perfect.
+
+---
+
+## 🛠️ For Developers (Optional)
+
+If you want to run or extend the Python source:
+
+### 📦 Requirements
+- Python 3.9+
+- `yt-dlp`
+- `mutagen`
+- `requests`
+- `tkinter` (usually built-in)
+
+### ▶ Install dependencies
 
 ```bash
-/
-├── downloader.py         # GUI YouTube music downloader
-├── Music.py              # Auto metadata + synced lyrics embedder
-├── temp_metadata/        # Temp folder for cover images
-└── README.md             # You're reading it!
+pip install -r requirements.txt
