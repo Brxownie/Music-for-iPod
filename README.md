@@ -21,10 +21,8 @@ This project is a **modern, GUI-based toolkit** for downloading music from YouTu
   - Artist
   - Title
   - Album
-  - Year
   - Cover Art (in HD)
   - Lyrics
-- Embeds synced lyrics from `.lrc` or online sources (SYLT frame)
 - Renames files to `Artist - Title.mp3` (optional)
 - Creates a side panel showing live status per file
 
