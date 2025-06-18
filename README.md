@@ -40,13 +40,13 @@ No junk. No command line. Just double-click, search, download, and you're done. 
 
 ### 🔄 Step-by-step
 
-1. 📦 **[Download the latest release](https://github.com/YourUser/YourRepo/releases)**
+1. 📦 **[Download the latest release](https://github.com/Brxownie/Music-for-iPod/releases)**
 2. 🗂️ Extract the `.zip` anywhere
 3. 🚀 Double-click `Download Songs.exe`
 4. 🔎 Search your song and hit **Download**
 5. 🎼 Click **"Open Music.exe"** to embed clean metadata + lyrics
 
-🎉 You're done. Plug your files into any player, editor, or even upload to Spotify/Apple Music. They'll look perfect.
+🎉 You're done. Use now iTunes to upload them to the iPod. They'll look perfect.
 
 ---
 
