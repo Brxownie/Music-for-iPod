@@ -2,6 +2,7 @@ import os
 import re
 import subprocess
 import threading
+import sys
 from tkinter import *
 from tkinter import ttk
 
@@ -50,9 +51,10 @@ def download_song(video_id, title, update_status):
     subprocess.run(cmd)
     update_status(f"✅ Downloaded: {safe_title}")
 
-def open_music_py():
+def open_music_exe():
     try:
-        exe_path = os.path.join(os.path.dirname(__file__), "Music.exe")
+        base_path = os.path.dirname(sys.executable if getattr(sys, 'frozen', False) else os.path.abspath(__file__))
+        exe_path = os.path.join(base_path, "Music.exe")
         subprocess.Popen([exe_path], shell=True)
     except Exception as e:
         print("Error opening Music.exe:", e)
@@ -84,7 +86,7 @@ class YouTubeDownloaderApp:
         self.search_button = ttk.Button(frame, text="Search", command=self.perform_search)
         self.search_button.grid(row=0, column=2, padx=5)
 
-        self.music_btn = ttk.Button(self.root, text="🎼 Open Music.exe", command=open_music_py)
+        self.music_btn = ttk.Button(self.root, text="🎼 Open Music.exe", command=open_music_exe)
         self.music_btn.pack(side=RIGHT, padx=12, pady=6)
 
         self.canvas = Canvas(self.root, bg="#ffffff", highlightthickness=0)
@@ -136,7 +138,7 @@ class YouTubeDownloaderApp:
             left = Frame(row, bg="#ffffff")
             left.pack(side=LEFT, fill=BOTH, expand=True)
 
-            Label(left, text=title, anchor="w", bg="#ffffff", font=("Segoe UI", 10, "bold")).pack(anchor="w")  # RAW title
+            Label(left, text=title, anchor="w", bg="#ffffff", font=("Segoe UI", 10, "bold")).pack(anchor="w")
             Label(left, text=f"by {uploader}", anchor="w", bg="#ffffff", font=("Segoe UI", 9, "italic"), fg="gray").pack(anchor="w")
 
             ttk.Button(row, text="Download", command=lambda v=vid, t=title: threading.Thread(target=download_song, args=(v, t, self.update_status)).start()).pack(side=RIGHT, padx=5)
