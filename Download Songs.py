@@ -22,9 +22,15 @@ def get_unique_filename(name):
         counter += 1
     return name
 
+def get_app_dir():
+    return os.path.dirname(sys.executable if getattr(sys, 'frozen', False) else os.path.abspath(__file__))
+
+def get_yt_dlp_path():
+    return os.path.join(get_app_dir(), "yt-dlp.exe")
+
 def yt_search(query):
     result = subprocess.run(
-        ["yt-dlp", f"ytsearch10:{query}", "--flat-playlist", "--print", "%(title)s|%(id)s|%(uploader)s"],
+        [get_yt_dlp_path(), f"ytsearch10:{query}", "--flat-playlist", "--print", "%(title)s|%(id)s|%(uploader)s"],
         stdout=subprocess.PIPE, stderr=subprocess.DEVNULL, text=True
     )
     lines = result.stdout.strip().split('\n')
@@ -41,7 +47,7 @@ def download_song(video_id, title, update_status):
     update_status(f"⬇️ Downloading: {safe_title}...")
 
     cmd = [
-        "yt-dlp", f"https://www.youtube.com/watch?v={video_id}",
+        get_yt_dlp_path(), f"https://www.youtube.com/watch?v={video_id}",
         "-f", "bestaudio",
         "-x", "--audio-format", "mp3",
         "-o", safe_title,
@@ -53,7 +59,7 @@ def download_song(video_id, title, update_status):
 
 def open_music_exe():
     try:
-        base_path = os.path.dirname(sys.executable if getattr(sys, 'frozen', False) else os.path.abspath(__file__))
+        base_path = get_app_dir()
         exe_path = os.path.join(base_path, "Music.exe")
         subprocess.Popen([exe_path], shell=True)
     except Exception as e:
