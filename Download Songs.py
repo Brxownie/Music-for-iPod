@@ -3,8 +3,9 @@ import re
 import subprocess
 import threading
 import sys
+import urllib.request
 from tkinter import *
-from tkinter import ttk
+from tkinter import messagebox, ttk
 
 def clean_title(title):
     title = re.sub(r'[\[\(]?[^\[\]\(\)]*lyrics[^\[\]\(\)]*[\]\)]?', '', title, flags=re.IGNORECASE)
@@ -28,7 +29,31 @@ def get_app_dir():
 def get_yt_dlp_path():
     return os.path.join(get_app_dir(), "yt-dlp.exe")
 
+def get_ffmpeg_path():
+    return os.path.join(get_app_dir(), "ffmpeg.exe")
+
+def ensure_binaries_exist():
+    missing = []
+    if not os.path.exists(get_yt_dlp_path()):
+        missing.append("yt-dlp.exe\nhttps://github.com/yt-dlp/yt-dlp/releases/latest/download/yt-dlp.exe")
+    if not os.path.exists(get_ffmpeg_path()):
+        missing.append("ffmpeg.exe\nhttps://www.gyan.dev/ffmpeg/builds/ffmpeg-release-essentials.zip")
+
+    if not missing:
+        return True
+
+    messagebox.showerror(
+        "Missing Tools",
+        "The following required tools are missing from the same folder as this app:\n\n"
+        + "\n\n".join(missing)
+        + "\n\nPlease download them manually and place them next to this program."
+    )
+    return False
+
+
 def yt_search(query):
+    if not ensure_binaries_exist():
+        return []
     result = subprocess.run(
         [get_yt_dlp_path(), f"ytsearch10:{query}", "--flat-playlist", "--print", "%(title)s|%(id)s|%(uploader)s"],
         stdout=subprocess.PIPE, stderr=subprocess.DEVNULL, text=True
@@ -42,6 +67,10 @@ def yt_search(query):
     return parsed
 
 def download_song(video_id, title, update_status):
+    if not ensure_binaries_exist():
+        update_status("❌ Missing yt-dlp or ffmpeg.")
+        return
+
     clean_name = clean_title(title)
     safe_title = get_unique_filename(f"{clean_name}.mp3")
     update_status(f"⬇️ Downloading: {safe_title}...")
@@ -50,6 +79,7 @@ def download_song(video_id, title, update_status):
         get_yt_dlp_path(), f"https://www.youtube.com/watch?v={video_id}",
         "-f", "bestaudio",
         "-x", "--audio-format", "mp3",
+        "--ffmpeg-location", get_ffmpeg_path(),
         "-o", safe_title,
         "--no-playlist", "--quiet"
     ]
@@ -59,8 +89,7 @@ def download_song(video_id, title, update_status):
 
 def open_music_exe():
     try:
-        base_path = get_app_dir()
-        exe_path = os.path.join(base_path, "Music.exe")
+        exe_path = os.path.join(get_app_dir(), "Music.exe")
         subprocess.Popen([exe_path], shell=True)
     except Exception as e:
         print("Error opening Music.exe:", e)
@@ -122,7 +151,7 @@ class YouTubeDownloaderApp:
         query += " lyrics"
         self.clear_results()
         self.update_status(f"🔎 Searching: {query}...")
-        threading.Thread(target=self._search_thread, args=(query,)).start()
+        threading.Thread(target=self._search_thread, args=(query,), daemon=True).start()
 
     def _search_thread(self, query):
         try:
@@ -147,7 +176,11 @@ class YouTubeDownloaderApp:
             Label(left, text=title, anchor="w", bg="#ffffff", font=("Segoe UI", 10, "bold")).pack(anchor="w")
             Label(left, text=f"by {uploader}", anchor="w", bg="#ffffff", font=("Segoe UI", 9, "italic"), fg="gray").pack(anchor="w")
 
-            ttk.Button(row, text="Download", command=lambda v=vid, t=title: threading.Thread(target=download_song, args=(v, t, self.update_status)).start()).pack(side=RIGHT, padx=5)
+            ttk.Button(row, text="Download", command=lambda v=vid, t=title: threading.Thread(
+                target=download_song,
+                args=(v, t, self.update_status),
+                daemon=True
+            ).start()).pack(side=RIGHT, padx=5)
 
 if __name__ == "__main__":
     root = Tk()
