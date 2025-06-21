@@ -70,9 +70,10 @@ pip install -r requirements.txt
 
 ## 🙏 Credits
 
-- [yt-dlp](https://github.com/yt-dlp/yt-dlp) — For YouTube downloading
-- [mutagen](https://github.com/quodlibet/mutagen) — For audio metadata editing
-- [Deezer API](https://developers.deezer.com/api) — For artist, album, and cover data
-- [Lyrics.ovh](https://lyricsovh.docs.apiary.io) — For fetching plain lyrics
-- GUI and logic — handcrafted by [Brxownie](https://github.com/Brxownie) and ChatGPT
+- [yt-dlp](https://github.com/yt-dlp/yt-dlp) — For YouTube downloading.
+- [FFmpeg](https://ffmpeg.org/) — For audio and video processing.
+- [mutagen](https://github.com/quodlibet/mutagen) — For audio metadata editing.
+- [Deezer API](https://developers.deezer.com/api) — For artist, album, and cover data.
+- [Lyrics.ovh](https://lyricsovh.docs.apiary.io) — For fetching plain lyrics.
+- GUI and logic — handcrafted by [Brxownie](https://github.com/Brxownie) and ChatGPT.
 
