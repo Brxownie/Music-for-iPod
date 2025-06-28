@@ -3,7 +3,6 @@ import re
 import subprocess
 import threading
 import sys
-import urllib.request
 from tkinter import *
 from tkinter import messagebox, ttk
 
@@ -38,10 +37,8 @@ def ensure_binaries_exist():
         missing.append("yt-dlp.exe\nhttps://github.com/yt-dlp/yt-dlp/releases/latest/download/yt-dlp.exe")
     if not os.path.exists(get_ffmpeg_path()):
         missing.append("ffmpeg.exe\nhttps://www.gyan.dev/ffmpeg/builds/ffmpeg-release-essentials.zip")
-
     if not missing:
         return True
-
     messagebox.showerror(
         "Missing Tools",
         "The following required tools are missing from the same folder as this app:\n\n"
@@ -49,7 +46,6 @@ def ensure_binaries_exist():
         + "\n\nPlease download them manually and place them next to this program."
     )
     return False
-
 
 def yt_search(query):
     if not ensure_binaries_exist():
@@ -65,6 +61,17 @@ def yt_search(query):
         if len(parts) == 3:
             parsed.append(tuple(parts))
     return parsed
+
+def get_video_title(video_id):
+    """Récupère le vrai titre de la vidéo pour un nommage cohérent"""
+    try:
+        result = subprocess.run(
+            [get_yt_dlp_path(), f"https://www.youtube.com/watch?v={video_id}", "--get-title"],
+            stdout=subprocess.PIPE, stderr=subprocess.DEVNULL, text=True
+        )
+        return result.stdout.strip()
+    except Exception:
+        return f"youtube_{video_id}"
 
 def download_song(video_id, title, update_status):
     if not ensure_binaries_exist():
@@ -121,6 +128,10 @@ class YouTubeDownloaderApp:
         self.search_button = ttk.Button(frame, text="Search", command=self.perform_search)
         self.search_button.grid(row=0, column=2, padx=5)
 
+        self.include_lyrics_var = BooleanVar(value=True)
+        self.lyrics_checkbox = ttk.Checkbutton(frame, text="Music", variable=self.include_lyrics_var)
+        self.lyrics_checkbox.grid(row=0, column=3, padx=10)
+
         self.music_btn = ttk.Button(self.root, text="🎼 Open Music.exe", command=open_music_exe)
         self.music_btn.pack(side=RIGHT, padx=12, pady=6)
 
@@ -148,10 +159,27 @@ class YouTubeDownloaderApp:
         query = self.search_var.get().strip()
         if not query:
             return
-        query += " lyrics"
+
+        is_url = query.startswith("http://") or query.startswith("https://")
+        if not is_url and self.include_lyrics_var.get():
+            query += " lyrics"
+
         self.clear_results()
-        self.update_status(f"🔎 Searching: {query}...")
-        threading.Thread(target=self._search_thread, args=(query,), daemon=True).start()
+
+        if is_url:
+            match = re.search(r"(?:v=|youtu\.be/)([\w-]{11})", query)
+            if match:
+                video_id = match.group(1)
+                self.update_status("🔍 Getting video title...")
+                def fetch_and_download():
+                    title = get_video_title(video_id)
+                    download_song(video_id, title, self.update_status)
+                threading.Thread(target=fetch_and_download, daemon=True).start()
+            else:
+                self.update_status("❌ Invalid YouTube URL")
+        else:
+            self.update_status(f"🔎 Searching: {query}...")
+            threading.Thread(target=self._search_thread, args=(query,), daemon=True).start()
 
     def _search_thread(self, query):
         try:
