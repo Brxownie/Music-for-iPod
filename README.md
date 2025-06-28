@@ -13,7 +13,7 @@ No junk. No command line. Just double-click, search, download, and you're done. 
 ## 🧩 What's Inside?
 
 ### 🎵 Download Songs.exe
-> Your fast, smart YouTube song fetcher
+> The YouTube song fetcher
 
 - 🔍 Search up to 10 results from YouTube (adds the "lyrics" suffix at the end of the search to get cleaner files) or use directly the URL
 - 🎯 Picks the best quality audio (~263kbit/s)
