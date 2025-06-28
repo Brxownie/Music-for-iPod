@@ -83,13 +83,14 @@ def download_song(video_id, title, update_status):
     update_status(f"⬇️ Downloading: {safe_title}...")
 
     cmd = [
-        get_yt_dlp_path(), f"https://www.youtube.com/watch?v={video_id}",
-        "-f", "bestaudio",
-        "-x", "--audio-format", "mp3",
-        "--ffmpeg-location", get_ffmpeg_path(),
-        "-o", safe_title,
-        "--no-playlist", "--quiet"
-    ]
+    get_yt_dlp_path(), f"https://www.youtube.com/watch?v={video_id}",
+    "-f", "bestaudio",
+    "-x", "--audio-format", "mp3",
+    "--audio-quality", "0",
+    "--ffmpeg-location", get_ffmpeg_path(),
+    "-o", safe_title,
+    "--no-playlist", "--quiet"
+]
 
     subprocess.run(cmd)
     update_status(f"✅ Downloaded: {safe_title}")

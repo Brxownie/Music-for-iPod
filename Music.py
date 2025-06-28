@@ -32,9 +32,11 @@ def search_deezer(artist, title):
 def get_lyrics(artist, title):
     try:
         url = f"https://api.lyrics.ovh/v1/{artist}/{title}"
-        res = requests.get(url).json()
-        return res.get("lyrics")
-    except:
+        res = requests.get(url, timeout=3)
+        if res.status_code != 200:
+            return None
+        return res.json().get("lyrics")
+    except requests.RequestException:
         return None
 
 def download_cover(url, artist, song_title):
