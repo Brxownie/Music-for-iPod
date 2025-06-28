@@ -53,6 +53,7 @@ No junk. No command line. Just double-click, search, download, and you're done. 
 ## 🛠️ For Developers (Optional)
 
 If you want to run or extend the Python source:
+FFMPEG MUST BE IN PATH !
 
 ### 📦 Requirements
 - Python 3.9+
