@@ -15,14 +15,14 @@ No junk. No command line. Just double-click, search, download, and you're done. 
 ### 🎵 Download Songs.exe
 > Your fast, smart YouTube song fetcher
 
-- 🔍 Search up to 10 results from YouTube directly
-- 🎯 Picks the best quality audio
+- 🔍 Search up to 10 results from YouTube directly or use directly the URL
+- 🎯 Picks the best quality audio (~263kbit/s)
 - 🧹 Automatically cleans titles (removes "lyrics", "official video", etc.)
 - 📁 Saves the file as a proper `.mp3`
 - 🎼 One-click button to open the metadata editor (`Music.exe`)
 
 ### 🎙️ Music.exe
-> The powerful metadata editor & lyrics injector
+> The metadata editor & lyrics injector
 
 - 🧠 Detects artist & title automatically from filename
 - 🌐 Fetches:
