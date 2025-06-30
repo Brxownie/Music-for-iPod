@@ -48,6 +48,10 @@ No junk. No command line. Just double-click, search, download, and you're done. 
 
 🎉 You're done. Use now iTunes to upload them to the iPod. They'll look perfect.
 
+### 🔄 Update
+
+1. ❌ Erase the old one. Make sure that the songs are saved somewhere else
+2. 🗂️ Extract the `.zip` and use it as said above.
 ---
 
 ## 🛠️ For Developers (Optional)
