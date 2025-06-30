@@ -47,10 +47,18 @@ def ensure_binaries_exist():
     )
     return False
 
+def run_silent(*args, **kwargs):
+    kwargs["creationflags"] = subprocess.CREATE_NO_WINDOW if os.name == "nt" else 0
+    return subprocess.run(*args, **kwargs)
+
+def popen_silent(*args, **kwargs):
+    kwargs["creationflags"] = subprocess.CREATE_NO_WINDOW if os.name == "nt" else 0
+    return subprocess.Popen(*args, **kwargs)
+
 def yt_search(query):
     if not ensure_binaries_exist():
         return []
-    result = subprocess.run(
+    result = run_silent(
         [get_yt_dlp_path(), f"ytsearch10:{query}", "--flat-playlist", "--print", "%(title)s|%(id)s|%(uploader)s"],
         stdout=subprocess.PIPE, stderr=subprocess.DEVNULL, text=True
     )
@@ -63,9 +71,8 @@ def yt_search(query):
     return parsed
 
 def get_video_title(video_id):
-    """Récupère le vrai titre de la vidéo pour un nommage cohérent"""
     try:
-        result = subprocess.run(
+        result = run_silent(
             [get_yt_dlp_path(), f"https://www.youtube.com/watch?v={video_id}", "--get-title"],
             stdout=subprocess.PIPE, stderr=subprocess.DEVNULL, text=True
         )
@@ -83,22 +90,22 @@ def download_song(video_id, title, update_status):
     update_status(f"⬇️ Downloading: {safe_title}...")
 
     cmd = [
-    get_yt_dlp_path(), f"https://www.youtube.com/watch?v={video_id}",
-    "-f", "bestaudio",
-    "-x", "--audio-format", "mp3",
-    "--audio-quality", "0",
-    "--ffmpeg-location", get_ffmpeg_path(),
-    "-o", safe_title,
-    "--no-playlist", "--quiet"
-]
+        get_yt_dlp_path(), f"https://www.youtube.com/watch?v={video_id}",
+        "-f", "bestaudio",
+        "-x", "--audio-format", "mp3",
+        "--audio-quality", "0",
+        "--ffmpeg-location", get_ffmpeg_path(),
+        "-o", safe_title,
+        "--no-playlist", "--quiet"
+    ]
 
-    subprocess.run(cmd)
+    run_silent(cmd)
     update_status(f"✅ Downloaded: {safe_title}")
 
 def open_music_exe():
     try:
         exe_path = os.path.join(get_app_dir(), "Music.exe")
-        subprocess.Popen([exe_path], shell=True)
+        popen_silent([exe_path], shell=True)
     except Exception as e:
         print("Error opening Music.exe:", e)
 
