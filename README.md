@@ -26,7 +26,7 @@ No junk. No command line. Just double-click, search, download, and you're done. 
 
 - 🧠 Detects artist & title automatically from filename
 - 🌐 Fetches:
-  - 🎨 Album, release year, HD cover art (from Deezer)
+  - 🎨 Album, HD cover art (from Deezer)
   - 📝 Full lyrics (from Lyrics.ovh)
 - 🖊️ Embeds all metadata directly into the `.mp3` or `.m4a` file
 - 🎼 Optionally renames file to `Artist - Title.mp3`
