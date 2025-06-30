@@ -38,7 +38,7 @@ No junk. No command line. Just double-click, search, download, and you're done. 
 
 > ✅ No Python. No Terminal. No Hassle.
 
-### 🔄 Step-by-step
+### 📖 Step-by-step
 
 1. 📦 **[Download the latest release](https://github.com/Brxownie/Music-for-iPod/releases)**
 2. 🗂️ Extract the `.zip` anywhere
